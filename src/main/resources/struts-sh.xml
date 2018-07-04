@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+    
+<struts>
+	<package name="sh"  extends="needlogin">
+	
+	
+		<action name="vendermaster_*" class="venderMasterAction" method="{1}">
+		
+				<result name="saveSUCCESS">/WEB-INF/pages/vender/vender_add.jsp</result>
+				<result name="pageQuerySUCCESS" type="json">
+				<param name="root">pageResponseBean</param>
+				<!-- 配置 属性includeProperties 指定哪些属性返回  -->
+				<param name="includeProperties">
+					<!-- 正则表达式 格式  -->
+					total, <!-- pageResponseBean的 total 属性返回  -->
+					rows\[\d+\]\.id,
+					rows\[\d+\]\.vendId,
+					rows\[\d+\]\.vendDesc,
+					rows\[\d+\]\.vendAddr,
+					rows\[\d+\]\.contMan,
+					rows\[\d+\]\.tradeAmount,
+					rows\[\d+\]\.vendtype\.vendtypeDesc,
+					rows\[\d+\]\.shipvin\.shipviaDesc
+				</param>
+			</result>
+		</action>
+		
+		<action name="vendType_*"  class="vendTypeAction" method="{1}">
+				<result name="ajaxlistSUCCESS" type="json">
+				<param name="root">vendtypes</param>
+				<param name="includeProperties">
+					\[\d+\]\.vendtypeId,
+					\[\d+\]\.vendtypeDesc
+				</param>
+			</result>
+		</action>
+		
+			<action name="shipvin_*"  class="shipVinAction" method="{1}">
+				<result name="ajaxlistSUCCESS" type="json">
+				<param name="root">shipvins</param>
+				<param name="includeProperties">
+					\[\d+\]\.shipviaId,
+					\[\d+\]\.shipviaDesc
+				</param>
+			</result>
+		</action>
+		
+		
+	
+	</package>
+
+
+</struts>

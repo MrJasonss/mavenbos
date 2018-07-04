@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<!-- 配置Service -->
+	<bean id="userService" class="cn.itcast.bos.service.impl.user.UserServiceImpl" />
+	<bean id="standardService" class="cn.itcast.bos.service.impl.bc.StandardServiceImpl" />
+	<bean id="staffService" class="cn.itcast.bos.service.impl.bc.StaffServiceImpl" />
+	<bean id="regionService" class="cn.itcast.bos.service.impl.bc.RegionServiceImpl" />
+	<bean id="subareaService" class="cn.itcast.bos.service.impl.bc.SubareaServiceImpl" />
+	<bean id="decidedZoneService" class="cn.itcast.bos.service.impl.bc.DecidedZoneServiceImpl"/>
+	<bean id="noticeBillService" class="cn.itcast.bos.service.impl.qp.NoticeBillServiceImpl"/>
+	<bean id="workOrderManageService" class="cn.itcast.bos.service.impl.qp.WorkOrderManageServiceImpl" />
+	<bean id="workBillService" class="cn.itcast.bos.service.impl.qp.WorkBillServiceImpl" />
+	
+	<bean id="functionService" class="cn.itcast.bos.service.impl.auth.FunctionServiceImpl" />
+	<bean id="roleService" class="cn.itcast.bos.service.impl.auth.RoleServiceImpl" />
+	<bean id="bosTaskService" class="cn.itcast.bos.service.impl.workflow.BosTaskServiceImpl"></bean>
+	
+	
+	
+	<bean id="venderMasterService" class="cn.itcast.bos.service.impl.storehouse.venderMasterServiceImpl"></bean>
+	<bean id="vendTypeService" class="cn.itcast.bos.service.impl.storehouse.vendTypeServiceImpl"></bean>
+	<bean id="shipVinService" class="cn.itcast.bos.service.impl.storehouse.ShipvinServiceImpl"></bean>
+</beans>

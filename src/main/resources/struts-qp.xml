@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="qp" extends="needlogin">
+		<!-- 业务通知单受理 -->
+		<action name="noticebill_*" class="noticeBillAction" method="{1}">
+			<result name="saveSUCCESS">/WEB-INF/pages/qupai/noticebill_add.jsp</result>
+			<!-- 查询手机号 -->
+			<result name="findCustomerByTelephoneSUCCESS" type="json">
+				<param name="root">customers</param>
+			</result>
+			<result name="findnoassociationsSUCCESS" type="json">
+				<param name="root">nonoticeBills</param>
+			</result>
+			<result name="findassociationsSUCCESS" type="json">
+				<param name="root">noticeBills</param>
+			</result>
+			
+			<!-- 人工调度 -->
+			<result name="diaoduSUCCESS">/WEB-INF/pages/qupai/noticebill.jsp</result>
+		</action>
+		
+		<!-- 工单操作 -->
+		<action name="workbill_*" class="workBillAction" method="{1}">
+			<result name="pageQuerySUCCESS"  type="json">
+				<param name="root">pageResponseBean</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.id,
+					rows\[\d+\]\.noticebill\.id,
+					rows\[\d+\]\.staff\.name,
+					rows\[\d+\]\.staff\.telephone,
+					rows\[\d+\]\.type,
+					rows\[\d+\]\.pickstate,
+					rows\[\d+\]\.buildtime,
+					rows\[\d+\]\.attachbilltimes
+				</param>
+			</result>
+			<!-- 消单 -->
+			<result name="delBatchSUCCESS">/WEB-INF/pages/qupai/noticebill.jsp</result>
+			<!-- 追单 -->
+			<result name="doRestoreSUCCESS">/WEB-INF/pages/qupai/noticebill.jsp</result>
+		</action>
+		
+		<!-- 工作单管理 -->
+		<action name="workordermanage_*" class="workOrderManageAction" method="{1}">
+			<!-- 保存 -->
+			<result name="saveOrUpdateSUCCESS" type="json">
+				<param name="root">map</param>
+			</result>
+			<!-- 分页查询 -->
+			<result name="pageQuerySUCCESS" type="json">
+				<param name="root">pageResponseBean</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.id,
+					rows\[\d+\]\.arrivecity,
+					rows\[\d+\]\.product,
+					rows\[\d+\]\.num,
+					rows\[\d+\]\.weight,
+					rows\[\d+\]\.floadreqr,
+					rows\[\d+\]\.product,
+					rows\[\d+\]\.prodtimelimit,
+					rows\[\d+\]\.prodtype,
+					rows\[\d+\]\.sendername,
+					rows\[\d+\]\.senderphone,
+					rows\[\d+\]\.senderaddr,
+					rows\[\d+\]\.receivername,
+					rows\[\d+\]\.receiverphone,
+					rows\[\d+\]\.receiveraddr,
+					rows\[\d+\]\.actlweit
+				</param>
+			</result>
+			<!-- 无条件查询工单 -->
+			<result name="WorkOrderpageQuerySUCCESS" type="json">
+				<param name="root">pageResponseBean</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.id,
+					rows\[\d+\]\.arrivecity,
+					rows\[\d+\]\.product,
+					rows\[\d+\]\.num,
+					rows\[\d+\]\.weight,
+					rows\[\d+\]\.floadreqr,
+					rows\[\d+\]\.product,
+					rows\[\d+\]\.prodtimelimit,
+					rows\[\d+\]\.prodtype,
+					rows\[\d+\]\.sendername,
+					rows\[\d+\]\.senderphone,
+					rows\[\d+\]\.senderaddr,
+					rows\[\d+\]\.receivername,
+					rows\[\d+\]\.receiverphone,
+					rows\[\d+\]\.receiveraddr,
+					rows\[\d+\]\.actlweit
+				</param>
+			</result>
+			<!-- 导入工作单 -->
+			<result name="batchImportSUCCESS" type="json">
+				<param name="root">map</param>
+			</result>
+			
+			<!-- 查询结果导出 -->
+			<result name="exportXlsSUCCESS" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="contentDisposition">attachment;filename=${downloadFileName}</param>
+			</result>
+			<!-- 工作单审核列表 -->
+			<result name="listSUCCESS">/WEB-INF/pages/zhongzhuan/check.jsp</result>
+			<!-- 审批工作单  启动流程 -->
+			<result name="checkSUCCESS" type="redirectAction">workordermanage_list</result>
+		</action>
+	</package>
+</struts>

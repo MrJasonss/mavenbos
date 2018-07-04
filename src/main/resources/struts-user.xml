@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	
+	<package name="user" extends="needlogin">
+		<!-- 用户管理 -->
+		<action name="user_*" class="userAction" method="{1}">
+			<!-- 修改密码 -->
+			<result name="editpasswordSUCCESS" type="json">
+				<!-- 配置root参数，指定将值栈哪个数据返回  -->
+				<param name="root">map</param>
+			</result>
+			<!-- 找回密码 -->
+			<result name="findPassWdSUCCESS" type="json">
+				<!-- 配置root参数，指定将值栈哪个数据返回  -->
+				<param name="root">map</param>
+			</result>
+			<!-- 添加用户 -->
+			<result name="saveSUCCESS">/WEB-INF/pages/admin/userlist.jsp</result>
+			<result name="deleteSUCCESS">/WEB-INF/pages/admin/userlist.jsp</result>
+			<!-- <result name="listSUCCESS" type="json">
+				<param name="root">users</param>
+				<param name="includeProperties">
+					\[\d+\]\.id,
+					\[\d+\]\.username,
+					\[\d+\]\.telephone,
+					\[\d+\]\.gender,
+					\[\d+\]\.station,
+					\[\d+\]\.salary,
+					\[\d+\]\.birthday,
+					\[\d+\]\.role\.name
+				</param>
+			</result>
+			 -->
+			<result name="listSUCCESS" type="json">
+				<param name="root">pageResponseBean</param>
+				<!-- 配置 属性includeProperties 指定哪些属性返回  -->
+				<param name="includeProperties">
+					<!-- 正则表达式 格式  -->
+					total, <!-- pageResponseBean的 total 属性返回  -->
+					rows\[\d+\]\.id,
+					rows\[\d+\]\.username,
+					rows\[\d+\]\.telephone,
+					rows\[\d+\]\.gender,
+					rows\[\d+\]\.station,
+					rows\[\d+\]\.salary,
+					rows\[\d+\]\.birthday,
+					rows\[\d+\]\.role\.name
+				</param>
+			</result>
+			<!-- 授予角色 -->
+			<result name="grantRoleSUCCESS">/WEB-INF/pages/admin/userlist.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 这个包 不需要登陆拦截  -->
+	<package name="nologin" extends="struts-default">
+		<!-- 登陆功能 -->
+		<action name="login" class="loginAction">
+			<result name="input">/login.jsp</result>
+			<result type="redirect">/index.jsp</result>
+		</action>
+	</package>
+</struts>    

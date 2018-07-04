@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="caiwu" xmlns="http://jbpm.org/4.4/jpdl">
+   <start name="start1" g="326,23,48,48">
+      <transition name="to 财务报销申请" to="财务报销申请" g="-95,-17"/>
+   </start>
+   <end name="end1" g="321,402,48,48"/>
+   <task name="财务报销申请" g="316,130,92,52">
+      <transition name="to 经理审批" to="经理审批" g="-71,-17"/>
+   </task>
+   <task name="经理审批" g="316,241,92,52">
+      <transition name="to end1" to="end1" g="-47,-17"/>
+   </task>
+</process>

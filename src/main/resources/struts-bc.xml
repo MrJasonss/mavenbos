@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="bc" extends="needlogin">
+		<!-- 收派标准 -->
+		<action name="standard_*" class="standardAction" method="{1}">
+			<!-- 保存标准 -->
+			<result name="saveSUCCESS">/WEB-INF/pages/base/standard.jsp</result>
+			<!-- 分页查询标准数据 -->
+			<result name="pageQuerySUCCESS" type="json">
+				<param name="root">pageResponseBean</param>
+				<!-- 配置 属性includeProperties 指定哪些属性返回  -->
+				<param name="includeProperties">
+					<!-- 正则表达式 格式  -->
+					total, <!-- pageResponseBean的 total 属性返回  -->
+					rows\[\d+\]\.id,
+					rows\[\d+\]\.name,
+					rows\[\d+\]\.minweight,
+					rows\[\d+\]\.maxweight,
+					rows\[\d+\]\.updatetime,
+					rows\[\d+\]\.user\.username,
+					rows\[\d+\]\.user\.station
+				</param>
+			</result>
+			<!-- 删除数据 -->
+			<result name="delBatchSUCCESS">/WEB-INF/pages/base/standard.jsp</result>
+			<!-- 收派标准 ajax列表  -->
+			<result name="ajaxlistSUCCESS" type="json">
+				<param name="root">standards</param>
+				<param name="includeProperties">
+					\[\d+\]\.id,
+					\[\d+\]\.name
+				</param>
+			</result>
+		</action>
+		
+		<!-- 取派员管理 -->
+		<action name="staff_*" class="staffAction" method="{1}">
+			<!-- 添加或修改 -->
+			<result name="saveOrUpdateSUCCESS">/WEB-INF/pages/base/staff.jsp</result>
+			<!-- 分页列表查询 -->
+			<result name="pageQuerySUCCESS" type="json">
+				<param name="root">pageResponseBean</param>			
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.id,
+					rows\[\d+\]\.name,
+					rows\[\d+\]\.telephone,
+					rows\[\d+\]\.station,
+					rows\[\d+\]\.haspda,
+					rows\[\d+\]\.deltag,
+					rows\[\d+\]\.standard\.id,
+					rows\[\d+\]\.standard\.name
+				</param>
+			</result>
+			<!-- 作废取派员 -->
+			<result name="delBatchSUCCESS">/WEB-INF/pages/base/staff.jsp</result>
+			<!-- 还原取派员 -->
+			<result name="doRestoreSUCCESS">/WEB-INF/pages/base/staff.jsp</result>
+			<!-- json列表  添加定区时使用 -->
+			<result name="ajaxlistSUCCESS" type="json">
+				<param name="root">staffs</param>
+				<param name="includeProperties">
+					\[\d+\]\.id,
+					\[\d+\]\.name
+				</param>
+			</result>
+		</action>
+		<!-- 区域管理 -->
+		<action name="region_*" class="regionAction" method="{1}">
+			<!-- 批量导入 -->
+			<result name="importXlsSUCCESS" type="json">
+				<param name="root">map</param>
+			</result>
+			<!-- 新增区域 -->
+			<result name="saveOrUpdateSUCCESS">/WEB-INF/pages/base/region.jsp</result>
+			<!-- 批量删除区域 -->
+			<result name="delBatchSUCCESS">/WEB-INF/pages/base/region.jsp</result>
+			<!-- 分页查询 -->
+			<result name="pageQuerySUCCESS" type="json">
+				<param name="root">pageResponseBean</param>
+<!-- 				<param name="includeProperties"> -->
+<!-- 					total, -->
+<!-- 					rows\[\d+\]\.id, -->
+<!-- 					rows\[\d+\]\.province, -->
+<!-- 					rows\[\d+\]\.city, -->
+<!-- 					rows\[\d+\]\.district, -->
+<!-- 					rows\[\d+\]\.postcode, -->
+<!-- 					rows\[\d+\]\.shortcode, -->
+<!-- 					rows\[\d+\]\.citycode -->
+<!-- 				</param> -->
+			</result>
+			<!-- 添加分区时，需要区域 ajax列表 -->
+			<result name="ajaxlistSUCCESS" type="json">
+				<param name="root">regions</param>
+				<param name="includeProperties">
+					\[\d+\]\.id,
+					\[\d+\]\.info
+				</param>
+			</result>
+		</action>
+		
+		<!-- 分区管理 -->
+		<action name="subarea_*" class="subareaAction" method="{1}">
+			<!-- 添加分区 -->
+			<result name="saveOrUpdateSUCCESS">/WEB-INF/pages/base/subarea.jsp</result>
+			<!-- 批量导入分区 -->
+			<result name="importXlsSUCCESS" type="json">
+				<param name="root">map</param>
+			</result>
+			<!-- 批量删除分区 -->
+			<result name="delBatchSUCCESS">/WEB-INF/pages/base/subarea.jsp</result>
+			<!-- 分页列表查询 -->
+			<result name="pageQuerySUCCESS" type="json">
+				<param name="root">pageResponseBean</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.id,
+					rows\[\d+\]\.addresskey,
+					rows\[\d+\]\.startnum,
+					rows\[\d+\]\.endnum,
+					rows\[\d+\]\.single,
+					rows\[\d+\]\.position,
+					rows\[\d+\]\.region\.province,
+					rows\[\d+\]\.region\.city,
+					rows\[\d+\]\.region\.district
+				</param>
+			</result>
+			<!-- 查询结果导出 -->
+			<result name="exportXlsSUCCESS" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="contentDisposition">attachment;filename=${downloadFileName}</param>
+			</result>
+			<!-- 关联定区列表 -->
+			<result name="findnoassociationsSUCCESS" type="json">
+				<param name="root">subareas</param>
+				<param name="includeProperties">
+					\[\d+\]\.subareaId,
+					\[\d+\]\.addresskey,
+					\[\d+\]\.position
+				</param>
+			</result>
+			
+			<result name="findSubareasGroupByProvinceSUCCESS" type="json">
+				<param name="root">provinces</param>
+			</result>
+		</action>
+		<!-- 定区管理 -->
+		<action name="decidedzone_*" class="decidedZoneAction" method="{1}">
+			<!-- 添加保存 -->
+			<result name="saveOrUpdateSUCCESS">/WEB-INF/pages/base/decidedzone.jsp</result>
+			<!-- 批量删除分区 -->
+			<result name="delBatchSUCCESS">/WEB-INF/pages/base/decidedzone.jsp</result>
+			<!-- 定区分页查询 -->
+			<result name="pageQuerySUCCESS" type="json">
+				<param name="root">pageResponseBean</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.id,
+					rows\[\d+\]\.name,
+					rows\[\d+\]\.staff\.name,
+					rows\[\d+\]\.staff\.telephone,
+					rows\[\d+\]\.staff\.station
+				</param>
+			</result>
+			
+			<!-- 查询未关联 客户信息-->
+			<result name="findNoAssociationCustomersSUCCESS" type="json">
+				<param name="root">customers</param>
+			</result>
+			<!-- 查询已经关联 客户信息-->
+			<result name="findHasAssociationCustomersSUCCESS" type="json">
+				<param name="root">customers</param>
+			</result>
+			<!-- 关联客户到定区 -->
+			<result name="assignedCustomerToDecidedZoneSUCCESS">/WEB-INF/pages/base/decidedzone.jsp</result>
+		</action>
+	</package>
+</struts>    

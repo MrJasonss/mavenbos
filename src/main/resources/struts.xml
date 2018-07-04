@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" />
+	<!-- 修改 form 默认布局样式 -->
+	<constant name="struts.ui.theme" value="simple"></constant>
+
+	<package name="needlogin" extends="json-default">
+		<!-- 注册拦截器  -->
+		<interceptors>
+			<interceptor name="login" class="cn.itcast.bos.web.interceptor.LoginInterceptor"></interceptor>
+			<interceptor name="privilege" class="cn.itcast.bos.web.interceptor.PrivilegeInterceptor"></interceptor>
+			<interceptor name="myexception" class="cn.itcast.bos.web.interceptor.MyExceptionInterceptor"></interceptor>
+			<!-- 定义新的拦截器栈  -->
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="login"></interceptor-ref>
+			</interceptor-stack>
+			<!-- 定义新的拦截器栈  权限栈  -->
+			<interceptor-stack name="privilegeStack">
+				<interceptor-ref name="myexception"></interceptor-ref> <!-- 异常拦截器配置到最前端 -->
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="login"></interceptor-ref>
+				<interceptor-ref name="privilege"></interceptor-ref>
+			</interceptor-stack>
+			
+		</interceptors>
+		
+		<!-- 设置默认拦截器栈 -->
+		<default-interceptor-ref name="privilegeStack"></default-interceptor-ref>
+		
+		<!-- 配置全局结果集 -->
+		<global-results>
+			<result name="login">/login.jsp</result>
+			<result name="noprivilege">/noprivilege.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="errorjson" type="json">
+				<param name="root">map</param>
+			</result>
+		</global-results>
+		
+		<action name="index">
+			<result>/index.jsp</result>
+		</action>
+		<!-- 需要进行权限控制的页面访问 -->
+		<action name="page_*_*">
+			<result>/WEB-INF/pages/{1}/{2}.jsp</result>
+		</action>
+	</package>
+	
+	
+	<include file="struts-user.xml"></include>
+	<include file="struts-bc.xml"></include> 
+	<include file="struts-qp.xml"></include>
+	<include file="struts-auth.xml"></include>
+	<include file="struts-workflow.xml"></include>
+	<include file="struts-sh.xml"></include>
+
+</struts>

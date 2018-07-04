@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="auth" extends="needlogin">
+		<!-- 权限管理 -->
+		<action name="function_*" class="functionAction" method="{1}">
+			<!-- ajax下拉列表 -->
+			<result name="ajaxlistSUCCESS" type="json">
+				<param name="root">functions</param>
+				<param name="includeProperties">
+					\[\d+\]\.id,
+					\[\d+\]\.info 
+				</param>
+			</result>
+			<!-- 添加权限 -->
+			<result name="saveSUCCESS">/WEB-INF/pages/admin/function.jsp</result>
+			<!-- 权限所有数据查询 -->
+			<result name="listSUCCESS" type="json">
+				<param name="root">functions</param>
+				<param name="includeProperties">
+					\[\d+\]\.id,
+					\[\d+\]\.name,
+					\[\d+\]\.description,
+					\[\d+\]\.page,
+					\[\d+\]\.generateMenu,
+					\[\d+\]\.zindex
+				</param>
+			</result>
+			<!-- 授权树 -->
+			<result name="treedataSUCCESS" type="json">
+				<param name="root">functions</param>
+				<param name="includeProperties">
+					\[\d+\]\.id,
+					\[\d+\]\.name,
+					\[\d+\]\.parentId
+				</param>
+			</result>
+			<!-- 动态菜单 -->
+			<result name="menuSUCCESS" type="json">
+				<param name="root">functions</param>
+				<param name="includeProperties">
+					\[\d+\]\.id,
+					\[\d+\]\.name,
+					\[\d+\]\.parentId,
+					\[\d+\]\.click,
+					\[\d+\]\.page
+				</param>
+			</result>
+		</action>
+		<!-- 角色管理 -->
+		<action name="role_*" class="roleAction" method="{1}">
+			<!-- 添加角色 -->
+			<result name="saveSUCCESS">/WEB-INF/pages/admin/role.jsp</result>
+			<result name="roledeleteSUCCESS">/WEB-INF/pages/admin/role.jsp</result>
+			<!-- 角色列表-->
+			<result name="listSUCCESS" type="json">
+				<param name="root">roles</param>
+				<param name="includeProperties">
+					\[\d+\]\.id,
+					\[\d+\]\.name,
+					\[\d+\]\.description
+				</param>
+			</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="workflow" extends="needlogin">
+		<!-- 流程定义管理 -->
+		<action name="processdefinition_*" class="processDefinitionAction" method="{1}">
+			<!-- 发布新流程 -->
+			<result name="deploySUCCESS" type="redirectAction">processdefinition_list</result>
+			<!-- 查询所有流程定义 -->
+			<result name="listSUCCESS">/WEB-INF/pages/workflow/processdefinition_list.jsp</result>
+			<!-- 查看图片 -->
+			<result name="viewpngSUCCESS" type="stream">
+				<param name="contentType">image/png</param>
+			</result>
+		</action>
+		<!-- 任务管理 -->
+		<action name="task_*" class="taskAction" method="{1}">
+			<!-- 查询组任务 -->
+			<result name="findgrouptaskSUCCESS">/WEB-INF/pages/workflow/grouptask.jsp</result>
+			<!-- 拾取组任务 -->
+			<result name="takeTaskSUCCESS" type="redirectAction">task_findgrouptask</result>
+			<!-- 查询个人任务列表 -->
+			<result name="findpersonaltaskSUCCESS">/WEB-INF/pages/workflow/personaltask.jsp</result>
+			<!-- 办理 中转环节  -->
+			<result name="saveTransferinfoSUCCESS" type="redirectAction">task_findpersonaltask</result>
+			<result name="instorecompleteSUCCESS" type="redirectAction">task_findpersonaltask</result>
+			<result name="outstorecompleteSUCCESS" type="redirectAction">task_findpersonaltask</result>
+			<result name="receiveinfocompleteSUCCESS" type="redirectAction">task_findpersonaltask</result>
+		</action>
+		<!-- 流程实例管理 -->
+		<action name="processinstance_*" class="processInstanceAction" method="{1}">
+			<result name="listSUCCESS">/WEB-INF/pages/workflow/processinstance.jsp</result>
+			<result name="showpngSUCCESS">/WEB-INF/pages/workflow/viewpng.jsp</result>
+		</action>
+		
+		
+		
+	</package>
+</struts>

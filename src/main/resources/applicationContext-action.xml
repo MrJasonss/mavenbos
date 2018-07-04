@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<!-- 配置Action -->
+	<bean id="loginAction" class="cn.itcast.bos.web.action.user.LoginAction" scope="prototype"/>
+	<bean id="userAction" class="cn.itcast.bos.web.action.user.UserAction" scope="prototype" />
+	<bean id="standardAction" class="cn.itcast.bos.web.action.bc.StandardAction" scope="prototype"/>
+	<bean id="staffAction" class="cn.itcast.bos.web.action.bc.StaffAction" scope="prototype"/>
+	<bean id="regionAction" class="cn.itcast.bos.web.action.bc.RegionAction" scope="prototype"/>
+	<bean id="subareaAction" class="cn.itcast.bos.web.action.bc.SubareaAction" scope="prototype"/>
+	<bean id="decidedZoneAction" class="cn.itcast.bos.web.action.bc.DecidedZoneAction" scope="prototype"/>
+	<bean id="noticeBillAction" class="cn.itcast.bos.web.action.qp.NoticeBillAction" scope="prototype"/>
+	<bean id="workOrderManageAction" class="cn.itcast.bos.web.action.qp.WorkOrderManageAction" scope="prototype" />
+	<bean id="workBillAction" class="cn.itcast.bos.web.action.qp.WorkBillAction" scope="prototype" />
+	
+	<bean id="functionAction" class="cn.itcast.bos.web.action.auth.FunctionAction" scope="prototype" />
+	<bean id="roleAction" class="cn.itcast.bos.web.action.auth.RoleAction" scope="prototype" />
+	<bean id="processDefinitionAction" class="cn.itcast.bos.web.action.workflow.ProcessDefinitionAction" scope="prototype" />
+	<bean id="taskAction" class="cn.itcast.bos.web.action.workflow.TaskAction" scope="prototype" />
+	<bean id="processInstanceAction" class="cn.itcast.bos.web.action.workflow.ProcessInstanceAction" scope="prototype" />
+	
+	<bean id="venderMasterAction" class="cn.itcast.bos.web.action.storehouse.venderMasterAction" scope="prototype" />
+	<bean id="vendTypeAction" class="cn.itcast.bos.web.action.storehouse.vendTypeAction" scope="prototype" />
+	<bean id="shipVinAction" class="cn.itcast.bos.web.action.storehouse.ShipvinAction" scope="prototype" />
+</beans>

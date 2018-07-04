@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.itcast.bos.domain.auth.Function" table="auth_function">
+		<cache usage="read-write"/>
+		<id name="id">
+			<generator class="uuid"></generator>
+		</id>
+		<!-- 下面列要按照顺序  -->
+		<property name="name" unique="true"></property>
+		<property name="description"></property>
+		<property name="page"></property>
+		<property name="generateMenu"></property>
+		<property name="zindex"></property>
+		
+		<!-- 表关联 -->
+		<many-to-one name="parentFunction" class="cn.itcast.bos.domain.auth.Function" column="pid"></many-to-one>
+		<set name="childrenFunctions">
+			<key column="pid"></key>
+			<one-to-many class="cn.itcast.bos.domain.auth.Function"/>
+		</set>
+		
+		<set name="roles" table="role_function">
+			<key column="function_id"></key>
+			<many-to-many class="cn.itcast.bos.domain.auth.Role" column="role_id"></many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>
